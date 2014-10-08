@@ -1,0 +1,79 @@
+<!doctype html>
+<html ng-app>
+<head>
+<title>AngulatJS Filters and pipes</title>
+<link href="style.css" rel="stylesheet" type="text/css">
+</head>
+
+<!-- currency filter automatically picks local and converts the currency format and the value will be rounded -->
+<body
+	ng-init="customers=[{name:'kishore',city:'nalgonda',orderTotal:'32.4123',joined:'2000-12-10'},
+						{name:'kiran',city:'hyderabad',orderTotal:'62.41345',joined:'2002-12-10'},
+						{name:'keerthi',city:'suryapet',orderTotal:'100.41',joined:'2000-12-20'},
+						{name:'achyutham',city:'miryalaguda',orderTotal:'102.41',joined:'1989-12-10'}]">
+	<h2>Customer Info</h2>
+	Filter:
+	<input type="text" ng-model="customerFilter.name">
+	<!-- This filter is searches string on name only -->
+	<!-- This is default filter which it searches on all fields
+	<input type="text" ng-model="customerFilter"> -->
+	<br />
+	<br />
+	<table>
+		<tr bgcolor="silver">
+			<th>Name of the customer</th>
+			<th>City</th>
+			<th>Joined date</th>
+			<th>Total Order Cost</th>
+			<th>default currency filter</th>
+		</tr>
+		<tr
+			ng-repeat="cust in customers |filter:customerFilter|orderBy:'name'">
+			<td>{{cust.name | uppercase}}</td>
+			<td>{{cust.city | uppercase}}</td>
+			<td>{{cust.joined | date}}</td>
+			<td>{{cust.orderTotal | currency:'USD'}}</td>
+
+			<td>{{cust.orderTotal | currency}}</td>
+		</tr>
+	</table>
+	<table>
+		<tr bgcolor="silver">
+			<th>Name of the customer</th>
+			<th>City</th>
+			<th>Joined date</th>
+			<th>Total Order Cost</th>
+			<th>default currency filter</th>
+		</tr>
+		<tr ng-repeat="cust in customers | limitTo:2">
+			<td>{{cust.name | uppercase}}</td>
+			<td>{{cust.city | uppercase}}</td>
+			<td>{{cust.joined | date}}</td>
+			<td>{{cust.orderTotal | currency:'USD'}}</td>
+
+			<td>{{cust.orderTotal | currency}}</td>
+		</tr>
+	</table>
+	Order by columns:
+	<table>
+		<tr bgcolor="silver">
+			<th ng-click="sortBy:'name';reverse=!reverse">Name of the customer</th>
+			<th ng-click="sortBy:'city';reverse=!reverse">City</th>
+			<th ng-click="sortBy:'joined';reverse=!reverse">Joined date</th>
+			<th ng-click="sortBy:'orderTotal';reverse=!reverse">Total Order	Cost</th>
+			<th ng-click="sortBy:'orderTotal';reverse=!reverse">default	currency filter</th>
+		</tr>
+		<tr
+			ng-repeat="cust in customers |filter:customerFilter |orderBy:sortBy:reverse">
+			<td>{{cust.name | uppercase}}</td>
+			<td>{{cust.city | uppercase}}</td>
+			<td>{{cust.joined | date}}</td>
+			<td>{{cust.orderTotal | currency:'USD'}}</td>
+
+			<td>{{cust.orderTotal | currency}}</td>
+		</tr>
+	</table>
+
+	<script type="text/javascript" src="angular.js"></script>
+</body>
+</html>
